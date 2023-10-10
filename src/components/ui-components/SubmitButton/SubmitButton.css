@@ -1,0 +1,20 @@
+.submit-button {
+  padding: 13px 13px 15px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 396px;
+  background-color: #2be080;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  opacity: 0.9;
+}
+
+.submit-button__content {
+  margin: 0;
+  color: #fff;
+  font: 500 14px / normal Inter;
+}

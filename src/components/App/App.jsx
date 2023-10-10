@@ -19,7 +19,7 @@ function App() {
           <Route element={<Page />}>
             <Route index element={<Main />} />
             <Route path='movies' element={<Movies />} />
-            <Route path='saved' element={<SavedMovies />} />
+            <Route path='saved-movies' element={<SavedMovies />} />
             <Route path='profile' element={<Profile />} />
           </Route>
           <Route path='signup' element={<Register />} />
