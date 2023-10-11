@@ -1,0 +1,38 @@
+.profile-input-component__label {
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  position: relative;
+}
+
+.profile-input-component__title,
+.profile-input-component__input {
+  font: 400 11px/normal Inter;
+  color: #000;
+}
+
+.profile-input-component__title {
+  max-width: 140px;
+  width: 100%;
+  margin: 0;
+}
+
+.profile-input-component__input {
+  margin: 0;
+  width: 100%;
+  text-align: end;
+  border: none;
+  outline: none;
+}
+
+.profile-input-component__input:invalid {
+  color: #ee3465;
+}
+
+.profile-input-component__error {
+  position: absolute;
+  right: 0;
+  bottom: -12px;
+  font: 400 10px / normal Inter;
+  color: #ee3465;
+}

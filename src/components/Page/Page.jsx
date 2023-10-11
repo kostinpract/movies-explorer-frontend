@@ -8,7 +8,7 @@ function Page() {
   return (
     <>
       <div className="page">
-        <Header isLogin={true}/>
+        <Header isLogin={false}/>
         <Outlet />
       </div>
       <Footer />

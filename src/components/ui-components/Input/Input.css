@@ -1,0 +1,46 @@
+.input-component__label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.input-component__title {
+  margin: 0;
+  font: 400 10px / normal Inter;
+  width: 100%;
+  color: #a0a0a0;
+}
+
+.input-component__input {
+  padding: 15px;
+  margin: 0;
+  max-width: 100%;
+  font: 400 13px / normal Inter;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background: #f9f9f9;
+  color: #000;
+}
+
+.input-component__input::placeholder {
+  color: #a0a0a0;
+}
+
+.input-component__input:focus {
+  border-color: #2be080;
+}
+
+.input-component__input:invalid {
+  color: #ee3465;
+}
+
+.input-component__error {
+  position: absolute;
+  left: 0;
+  bottom: -22px;
+  font: 400 10px / normal Inter;
+  color: #ee3465;
+}
