@@ -17,7 +17,6 @@ function Portfolio() {
           <div className="portfolio__card portfolio__cardTitleAbs">
             <p className="portfolio__cardTitle">Адаптивный сайт</p>
             <img src={arrow} alt="arrow" className="portfolio__arrow" />
-
           </div>
         </a>
         <a className="portfolio__link" target="_blank" href="https://github.com/kostinpract/mesto">
