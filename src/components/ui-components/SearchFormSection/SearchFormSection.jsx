@@ -6,7 +6,6 @@ function SearchFormSection({ placeholder, inputValue }) {
   return (
     <section className="search-form-section">
       <SearchForm className="search-form-section__form" placeholder="Фильм" />
-      <div className="search-form-section__dividing-line" />
       <SwitchCheckbox
         className="search-form-section__switch-checkbox"
         caption="Короткометражки"

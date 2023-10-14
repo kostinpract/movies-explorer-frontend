@@ -1,11 +1,10 @@
 .header {
     max-height: 74px;
-    padding-right: 70px;
-    padding-left: 70px;
     background: #FFF;
     display: flex;
     position: relative;
-  
+    padding-left: 70px;
+    padding-right: 70px;
   }
   
   

@@ -42,7 +42,7 @@
   border: none;
   background: transparent;
   width: 100%;
-  font: 400 13px / normal Inter;
+  font: 400 13px / normal var(--fonts);
   text-align: center;
 }
 

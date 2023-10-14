@@ -7,10 +7,10 @@ import Footer from "./Footer/Footer";
 function Page() {
   return (
     <>
-      <div className="page">
-        <Header isLogin={false}/>
+      <Header isLogin={false} />
+      <main className="page">
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </>
   );

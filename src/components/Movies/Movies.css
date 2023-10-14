@@ -1,10 +1,65 @@
+.movies {
+  padding-top: 70px;
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
 .movies__card-section {
-    padding-top: 80px;
-    margin-top: 69px;
-    border-top: 3px solid #E8E8E8;
-    margin-left: 30px;
-    margin-right: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  padding-top: 80px;
+  margin-top: 70px;
+  border-top: 1px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+}
+
+.movies__more-button {
+  margin-top: 60px;
+  margin-bottom: 80px;
+  padding: 9px;
+  width: 100%;
+  text-align: center;
+  font: 500 12px / normal var(--fonts);
+  border-radius: 6px;
+  background: #f9f9f9;
+  border: none;
+}
+
+@media screen and (max-width: 768px) {
+  .movies {
+    padding: 80px 30px 0 30px;
+  }
+
+  .movies__card-section {
+    padding-top: 70px;
+    margin-top: 110px;
+  }
+
+  .movies__more-button {
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .movies__card-section {
+    padding-top: 50px;
+    margin-top: 44px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .movies {
+    padding: 0 10px;
+  }
+
+  .movies__card-section {
+    gap: 20px;
+  }
+
+  .movies__more-button {
+    margin-top: 70px;
+    margin-bottom: 160px;
+  }
 }

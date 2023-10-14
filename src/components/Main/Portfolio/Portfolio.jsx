@@ -9,19 +9,19 @@ function Portfolio() {
       <div className="portfolio__container">
         <div className="portfolio__card">
           <p className="portfolio__cardTitle">Статичный сайт</p>
-          <a href="#">
+          <a href="https://github.com/kostinpract/how-to-learn" target="_blank">
             <img src={arrow} alt="arrow" className="portfolio__arrow" />
           </a>
         </div>
         <div className="portfolio__card portfolio__cardTitleAbs">
           <p className="portfolio__cardTitle">Адаптивный сайт</p>
-          <a href="#">
+          <a href="https://github.com/kostinpract/russian-travel" target="_blank">
             <img src={arrow} alt="arrow" className="portfolio__arrow" />
           </a>
         </div>
         <div className="portfolio__card">
           <p className="portfolio__cardTitle">Одностраничное приложение</p>
-          <a href="#">
+          <a href="https://github.com/kostinpract/mesto" target="_blank">
             <img src={arrow} alt="arrow" className="portfolio__arrow" />
           </a>
         </div>

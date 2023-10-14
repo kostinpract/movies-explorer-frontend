@@ -2,7 +2,7 @@
   width: 100%;
   color: #000;
   background-color: #FFF;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--fonts);
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

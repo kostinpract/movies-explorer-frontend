@@ -1,9 +1,9 @@
 .search-form-section {
-  padding: 16px 30px;
+  padding: 19px 30px 19px 19px;
   align-items: center;
   display: grid;
-  grid-template-columns: 1fr max-content max-content;
-  grid-template-areas: "form dividing-line switch-checkbox";
+  grid-template-columns: 1fr max-content;
+  grid-template-areas: "form switch-checkbox";
   gap: 14px;
   border-radius: 9px;
   background: #f9f9f9;
@@ -13,31 +13,35 @@
   grid-area: form;
 }
 
-.search-form-section__dividing-line {
-  background-color: #e8e8e8;
-  width: 1px;
-  height: 100%;
-  grid-area: dividing-line;
-}
-
 .search-form-section__switch-checkbox {
   grid-area: switch-checkbox;
 }
 
+@media screen and (max-width: 786px) {
+  .search-form-section {
+    padding-right: 20px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .search-form-section {
+    padding: 0;
     grid-template-columns: 1fr;
     justify-items: center;
     gap: 45px;
     background: none;
     grid-template-areas:
       "form"
-      "switch-checkbox"
-      "dividing-line";
+      "switch-checkbox";
   }
-  .search-form-section__dividing-line {
-    /* display: none; */
-    height: 1px;
-    width: 100%;
+  .search-form {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .search-form-section {
+    padding: 0;
   }
 }
