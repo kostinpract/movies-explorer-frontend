@@ -8,7 +8,7 @@
 
 .input-component__title {
   margin: 0;
-  font: 400 10px / normal Inter;
+  font: 400 10px / normal var(--fonts);
   width: 100%;
   color: #a0a0a0;
 }
@@ -17,7 +17,7 @@
   padding: 15px;
   margin: 0;
   max-width: 100%;
-  font: 400 13px / normal Inter;
+  font: 400 13px / normal var(--fonts);
   border: none;
   outline: none;
   border-radius: 8px;
@@ -41,6 +41,6 @@
   position: absolute;
   left: 0;
   bottom: -22px;
-  font: 400 10px / normal Inter;
+  font: 400 10px / normal var(--fonts);
   color: #ee3465;
 }

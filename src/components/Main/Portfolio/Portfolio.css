@@ -4,6 +4,11 @@
   margin-right: 70px;
 }
 
+.portfolio__link {
+  text-decoration: none;
+  border: 0;
+}
+
 .portfolio__title {
   margin: 0;
   padding: 0;
@@ -57,6 +62,7 @@
     font-weight: 400;
     line-height: 20px;
   }
+
 
   .portfolio__cardTitle {
     font-size: 18px;

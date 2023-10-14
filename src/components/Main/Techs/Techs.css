@@ -27,7 +27,7 @@
   margin-top: 20px;
   color: #000;
   text-align: center;
-  font-family: Inter;
+  font-family: var(--fonts);
   font-size: 50px;
   font-style: normal;
   font-weight: 400;
@@ -42,7 +42,7 @@
   margin-top: 26px;
   color: #000;
   text-align: center;
-  font-family: Inter;
+  font-family: var(--fonts);
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

@@ -7,7 +7,7 @@
 
 .profile-input-component__title,
 .profile-input-component__input {
-  font: 400 11px/normal Inter;
+  font: 400 11px/normal var(--fonts);
   color: #000;
 }
 
@@ -33,6 +33,6 @@
   position: absolute;
   right: 0;
   bottom: -12px;
-  font: 400 10px / normal Inter;
+  font: 400 10px / normal var(--fonts);
   color: #ee3465;
 }

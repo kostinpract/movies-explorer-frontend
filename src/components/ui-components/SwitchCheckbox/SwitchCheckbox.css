@@ -72,5 +72,5 @@
 
 .switch-checkbox__caption {
   margin: 0;
-  font: 400 13px/18px Inter;
+  font: 400 13px/18px var(--fonts);
 }

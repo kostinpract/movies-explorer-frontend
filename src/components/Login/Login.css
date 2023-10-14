@@ -22,7 +22,7 @@
   padding-top: 40px;
   padding-bottom: 40px;
   color: #000;
-  font: 500 24px / normal Inter;
+  font: 500 24px / normal var(--fonts);
 }
 
 .login-section__form {
@@ -55,7 +55,7 @@
  }
 .login-section__register-caption,
 .login-section__register-link {
-  font: 400 14px / normal Inter;
+  font: 400 14px / normal var(--fonts);
 }
 
 .login-section__register-caption {

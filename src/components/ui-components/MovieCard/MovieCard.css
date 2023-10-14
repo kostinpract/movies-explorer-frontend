@@ -23,24 +23,37 @@
 .movie-card__title {
   margin: 0;
   grid-area: title;
-  font: 500 18px / normal Inter;
+  font: 500 18px / normal var(--fonts);
 }
 
 .movie-card__duration {
   margin: 0;
   grid-area: duration;
-  font: 400 11px / normal Inter;
+  font: 400 11px / normal var(--fonts);
   color: #a0a0a0;
 }
 
 .movie-card__like-button {
   padding: 0;
+  width: 14px;
+  height: 14px;
   grid-area: like-button;
-  width: max-content;
   border: none;
   background: none;
   align-self: self-end;
   cursor: pointer;
+}
+
+.movie-card__like-button_type_active {
+  background: url(../../../images/like-icon.svg) no-repeat;
+}
+
+.movie-card__like-button_type_non-active {
+  background: url(../../../images/like-icon-non-active.svg) no-repeat;
+}
+
+.movie-card__like-button_type_active:hover {
+  background: url(../../../images/cross-icon.svg) no-repeat;
 }
 
 .movie-card__like-button:hover {
@@ -76,7 +89,7 @@
     /* "duration"; */
   }
   .movie-card__title {
-    font: 500 12px / normal Inter;
+    font: 500 12px / normal var(--fonts);
   }
   .movie-card__movie-cover {
     width: 100%;
