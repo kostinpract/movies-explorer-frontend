@@ -7,7 +7,9 @@ import Footer from "./Footer/Footer";
 function Page() {
   return (
     <>
-      <Header isLogin={false} />
+      <Header isLogin={
+        true
+      } />
       <main className="page">
         <Outlet />
       </main>

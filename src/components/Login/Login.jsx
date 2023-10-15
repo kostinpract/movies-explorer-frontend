@@ -9,7 +9,9 @@ function Login() {
   return (
     <section className="login-section">
       <div className="login-section__container">
-        <img className="login-section__logo" src={logo} alt="лого" />
+        <Link to="/">
+          <img className="login-section__logo" src={logo} alt="лого" />
+        </Link>
         <h1 className="login-section__title">Рады видеть!</h1>
         <form className="login-section__form">
           <Input placeholder="E-mail" type="email" inputTitle="E-mail" />
@@ -23,7 +25,7 @@ function Login() {
           <p className="login-section__register-caption">
             Ещё не зарегистрированы?
           </p>
-          <Link to="/" className="login-section__link">
+          <Link to="/signup" className="login-section__link">
             <p className="login-section__register-link">
               Регистрация
             </p>

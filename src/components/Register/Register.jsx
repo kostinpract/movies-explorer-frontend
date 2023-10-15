@@ -3,12 +3,15 @@ import "./Register.css";
 import Input from "../ui-components/Input/Input";
 import SubmitButton from "../ui-components/SubmitButton/SubmitButton";
 import logo from "../../images/logo.svg";
+import { Link } from "react-router-dom";
 
 function Register() {
   return (
     <section className="register-section">
       <div className="register-section__container">
-        <img className="register-section__logo" src={logo} alt="лого" />
+        <Link to="/">
+          <img className="register-section__logo" src={logo} alt="лого" />
+        </Link>
         <h1 className="register-section__title">Добро пожаловать!</h1>
         <form className="register-section__form">
           <Input placeholder="Имя" type="text" inputTitle="Имя" />
@@ -23,9 +26,9 @@ function Register() {
           <p className="register-section__login-caption">
             Уже зарегистрированы?
           </p>
-          <a className="register-section__login-link" href="#">
+          <Link to="/signin" className="register-section__login-link">
             Войти
-          </a>
+          </Link>
         </div>
       </div>
     </section>

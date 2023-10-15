@@ -2,6 +2,8 @@
   display: grid;
   grid-template-columns: min-content 1fr min-content;
   box-sizing: border-box;
+  padding-right: 19px;
+  border-right: 1px solid #cbcbcb;
 }
 
 .search-form__input {
@@ -40,6 +42,7 @@
     grid-template-columns: 1fr min-content;
     border-radius: 9px;
     background: #f9f9f9;
+    border-right: none;
   }
 
   .search-form__icon {

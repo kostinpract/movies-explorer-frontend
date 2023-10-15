@@ -1,6 +1,6 @@
 .register-section {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,7 +64,7 @@
 
 @media screen and (max-width: 320px) {
   .register-section__container {
-    height: calc(100vh - 68px);
+    min-height: calc(100vh - 68px);
     max-height: none;
   }
 
