@@ -4,6 +4,7 @@
   width: 100%;
   max-width: 396px;
   background-color: #2be080;
+  color: #fff;
   border-radius: 3px;
   border: none;
   cursor: pointer;
@@ -13,8 +14,13 @@
   opacity: 0.9;
 }
 
+.submit-button:disabled {
+  background-color: #f2f2f2;
+  color: #000;
+  cursor: not-allowed;
+}
+
 .submit-button__content {
   margin: 0;
-  color: #fff;
   font: 500 14px / normal var(--fonts);
 }

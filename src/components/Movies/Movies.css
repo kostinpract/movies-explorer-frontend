@@ -24,6 +24,11 @@
   border-radius: 6px;
   background: #f9f9f9;
   border: none;
+  cursor: pointer;
+}
+
+.movies__more-button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {

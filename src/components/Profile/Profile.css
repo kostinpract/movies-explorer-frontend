@@ -47,8 +47,14 @@
 }
 
 .profile-section__submit-button {
-  margin-top: auto;
+  margin-top: 100px;
 }
+
+profile-section__submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 
 .profile-section__logout-btn {
   padding-top: 16px;

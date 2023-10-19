@@ -1,8 +1,13 @@
 import "./SubmitButton.css";
 
-function SubmitButton({ content, extraClass }) {
+function SubmitButton({ content, extraClass, isDisabled, click }) {
   return (
-    <button type="submit" className={`submit-button ${extraClass}`}>
+    <button
+      onClick={click}
+      disabled={isDisabled}
+      type="submit"
+      className={`submit-button ${extraClass}`}
+    >
       <p className="submit-button__content">{content}</p>
     </button>
   );
