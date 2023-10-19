@@ -1,6 +1,6 @@
 # movies-explorer-frontend
 
-Дипломный проекттщву -м
+Дипломный проект
 
 Фронтэнд запущен тут https://kostinpract.nomoreparties.sbs/
 
