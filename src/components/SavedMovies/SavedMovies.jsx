@@ -11,7 +11,7 @@ import {
 import useValidationHook from "../../utils/hooks/useValidationHook";
 import { UserContext } from "../../services/UserContext/UserContext";
 
-function SavedMovies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
+function SavedMovies({ owner }) {
   const { state, setState } = useContext(UserContext);
   const { savedMovies } = state;
   const cardsAmount = useLazyLoadHook();
@@ -20,6 +20,10 @@ function SavedMovies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
     filteredCards: [],
   });
   const { values, handleFormChange } = useValidationHook();
+  const [filterParams, setFilterParams] = useState({
+    requestedMovie: "",
+    isCheckboxClicked: false,
+  });
 
   const setCardsDataFromScratch = (moviesArray) => {
     if (!moviesArray?.length) {
@@ -43,23 +47,7 @@ function SavedMovies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
 
   // set all cards for first screen
   useEffect(() => {
-    if (localStorage.getItem("searchMovieInput")) {
-      const filteredMovies = getFilteredMovies(
-        savedMovies,
-        localStorage.getItem("searchMovieInput")
-      );
-      if (isCheckboxClicked) {
-        const filteredShortMovies = getShortMovies(filteredMovies);
-        setCardsDataFromScratch(filteredShortMovies);
-      } else {
-        setCardsDataFromScratch(filteredMovies);
-      }
-    } else {
-      if (isCheckboxClicked) {
-        const filteredShortMovies = getShortMovies(savedMovies);
-        setCardsDataFromScratch(filteredShortMovies);
-      } else setCardsDataFromScratch(savedMovies);
-    }
+    setCardsDataFromScratch(savedMovies);
   }, [savedMovies]);
 
   // set all cards every time allCards amount is changed
@@ -73,27 +61,35 @@ function SavedMovies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
   }, [cardsData.allCards]);
 
   useEffect(() => {
-    const requestedValue = localStorage.getItem("searchMovieInput");
-
-    if (!requestedValue) {
+    if (!filterParams.requestedMovie) {
       const filteredShortMovies = getShortMovies(savedMovies);
       setCardsDataFromScratch(
-        isCheckboxClicked ? filteredShortMovies : savedMovies
+        filterParams.isCheckboxClicked ? filteredShortMovies : savedMovies
       );
     } else {
-      const filteredMovies = getFilteredMovies(savedMovies, requestedValue);
+      const filteredMovies = getFilteredMovies(
+        savedMovies,
+        filterParams?.requestedMovie
+      );
       const filteredShortMovies = getShortMovies(filteredMovies);
       setCardsDataFromScratch(
-        isCheckboxClicked === true ? filteredShortMovies : filteredMovies
+        filterParams.isCheckboxClicked === true
+          ? filteredShortMovies
+          : filteredMovies
       );
     }
-  }, [isCheckboxClicked]);
+  }, [filterParams.isCheckboxClicked]);
 
   const onSearchSubmit = () => {
-    localStorage.setItem("searchMovieInput", values.search);
+    setFilterParams((prevState) => {
+      return {
+        ...prevState,
+        requestedMovie: values.search,
+      };
+    });
 
     if (values.search === "") {
-      if (!isCheckboxClicked) {
+      if (!filterParams.isCheckboxClicked) {
         setCardsDataFromScratch(savedMovies);
       } else {
         const filteredShortMovies = getShortMovies(savedMovies);
@@ -101,7 +97,7 @@ function SavedMovies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
       }
     } else {
       const filteredMovies = getFilteredMovies(savedMovies, values.search);
-      if (!isCheckboxClicked) {
+      if (!filterParams.isCheckboxClicked) {
         setCardsDataFromScratch(filteredMovies);
       } else {
         const filteredShortMovies = getShortMovies(filteredMovies);
@@ -117,14 +113,17 @@ function SavedMovies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
           e.preventDefault();
           onSearchSubmit();
         }}
-        defaultValue={
-          localStorage.getItem("searchMovieInput") !== null
-            ? localStorage.getItem("searchMovieInput")
-            : ""
-        }
+        defaultValue={filterParams.requestedMovie}
         onChange={handleFormChange}
-        isCheckboxClicked={isCheckboxClicked}
-        setIsCheckboxClicked={setIsCheckboxClicked}
+        isCheckboxClicked={filterParams.isCheckboxClicked}
+        setIsCheckboxClicked={() => {
+          setFilterParams((prevState) => {
+            return {
+              ...prevState,
+              isCheckboxClicked: !prevState.isCheckboxClicked,
+            };
+          });
+        }}
       />
       <section className="movies__card-section">
         {cardsData.filteredCards.length
@@ -133,7 +132,7 @@ function SavedMovies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
               return (
                 <MovieCard
                   owner={owner}
-                  key={el.id}
+                  key={el._id}
                   movieId={el.movieId}
                   nameRU={el.nameRU}
                   nameEN={el.nameEN}

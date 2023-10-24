@@ -89,7 +89,7 @@ function Register() {
             name="password"
             validationError={errors?.password}
             inputTitle="Пароль"
-            minLength={6}
+            minLength={8}
           />
           {isError.isError ? (
           <span className="register-section__error">{isError.errorMessage}</span>

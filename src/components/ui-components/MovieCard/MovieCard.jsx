@@ -102,8 +102,9 @@ function MovieCard({
           }}
         ></button>
       </div>
-
-      <img className="movie-card__movie-cover" src={imageSrc} alt={imageAlt} />
+      <a href={trailerLink}>
+        <img className="movie-card__movie-cover" src={imageSrc} alt={imageAlt} />
+      </a>
     </li>
   );
 }

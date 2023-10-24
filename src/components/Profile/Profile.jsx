@@ -48,6 +48,7 @@ function Profile() {
         _id: null,
       };
     });
+    localStorage.clear();
     navigate("/");
   };
 

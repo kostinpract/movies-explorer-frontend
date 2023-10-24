@@ -9,7 +9,7 @@ function SwitchCheckbox({ caption, setIsCheckboxClicked, isCheckboxClicked }) {
           className="switch-checkbox__input"
           type="checkbox"
           checked={Boolean(isCheckboxClicked)}
-          onChange={setIsCheckboxClicked}
+          onChange={() => setIsCheckboxClicked()}
         />
         <span className="switch-checkbox__slider" />
       </label>

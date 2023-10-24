@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import { UserContext } from "../../services/UserContext/UserContext";
 import Page from "../Page/Page";
@@ -11,10 +11,11 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Page404 from "../Page404/Page404";
 import { getAuthUserInfo, getSavedMovies } from "../../utils/MainApi";
-import { getCookie } from "../../utils/cookie";
+import { getCookie, deleteCookie } from "../../utils/cookie";
 import { ProtectedRoute } from "../../services/ProtectedRoute/ProtectedRoute";
 
 function App() {
+  const navigate = useNavigate()
   const location = useLocation();
   const { state, setState } = useContext(UserContext);
   const token = getCookie("token");
@@ -39,7 +40,20 @@ function App() {
             };
           })
         )
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          console.error(err)
+          deleteCookie("token");
+          setState((prevState) => {
+            return {
+              ...prevState,
+              isAuth: false,
+              userData: null,
+              _id: null,
+            };
+          });
+          localStorage.clear();
+          navigate("/");
+        });
       getAuthUserInfo()
         .then((res) => {
           const { name, email, _id } = res;
@@ -55,7 +69,32 @@ function App() {
             };
           });
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          console.error(err)
+          deleteCookie("token");
+          setState((prevState) => {
+            return {
+              ...prevState,
+              isAuth: false,
+              userData: null,
+              _id: null,
+            };
+          });
+          localStorage.clear();
+          navigate("/");
+        });
+    } else {
+      deleteCookie("token");
+      setState((prevState) => {
+        return {
+          ...prevState,
+          isAuth: false,
+          userData: null,
+          _id: null,
+        };
+      });
+      localStorage.clear();
+      navigate("/");
     }
   }, [token]);
 

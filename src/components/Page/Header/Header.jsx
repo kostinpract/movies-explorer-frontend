@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 import logo from "../../../images/logo.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import BurgerMenu from "../../BurgerMenu/BurgerMenu";
 
 function Header({ isLogin }) {
@@ -39,20 +39,20 @@ function Header({ isLogin }) {
         <div className="header__menu-auth">
           <ul className="header__menu-components">
             <li>
-              <Link to="/movies" className=" header__menu-btn-film">
+              <NavLink to="/movies" className={({isActive}) => !isActive ? "header__menu-btn-film" : "header__menu-btn-film_active"}>
                 Фильмы
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/saved-movies" className="header__menu-btn">
+              <NavLink to="/saved-movies" className={({isActive}) => !isActive ? "header__menu-btn" : "header__menu-btn_active"}>
                 Сохранённые фильмы
-              </Link>
+              </NavLink>
             </li>
           </ul>
 
-          <Link to="/profile" className="header__button-account">
+          <NavLink to="/profile" className="header__button-account">
             Аккаунт{" "}
-          </Link>
+          </NavLink>
 
           <BurgerMenu />
         </div>

@@ -66,7 +66,7 @@ const useValidationHook = () => {
           if (target.validity.tooShort) {
             setErrorMessage(
               target.name,
-              "Пароль должен быть длиной не менее 6 символов"
+              "Пароль должен быть длиной не менее 8 символов"
             );
           }
         }

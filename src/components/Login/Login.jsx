@@ -26,6 +26,8 @@ function Login() {
         if (res) {
           setError({ isError: false, errorMessage: "" });
           setCookie("token", res.token, cookieExpiredTime);
+          localStorage.setItem("searchMovieInput", "");
+          localStorage.setItem("isMovieShort", false);
           navigate("/movies");
         }
       })
@@ -42,7 +44,6 @@ function Login() {
             errorMessage: "Проверьте подключение к интернету",
           });
         }
-       
       });
   };
   return (
@@ -72,16 +73,16 @@ function Login() {
             value={values.password}
             onChange={handleFormChange}
             placeholder="Пароль"
-            minLength={6}
+            minLength={8}
             validationError={errors?.password}
           />
-           {isError.isError ? (
-          <span className="login-section__error">{isError.errorMessage}</span>
-        ) : null}
+          {isError.isError ? (
+            <span className="login-section__error">{isError.errorMessage}</span>
+          ) : null}
           <SubmitButton
             extraClass="login-section__submit-button"
             content="Войти"
-            type="submit" 
+            type="submit"
             isDisabled={!isFormValid}
           />
         </form>

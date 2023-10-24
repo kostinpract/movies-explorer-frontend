@@ -11,10 +11,12 @@ import {
   getShortMovies,
 } from "../../utils/constants";
 import useValidationHook from "../../utils/hooks/useValidationHook";
+import Loader from "../ui-components/Loader/Loader";
 
 function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
   const cardsAmount = useLazyLoadHook();
   const [savedMovies, setSavedMovies] = useState([]);
+  const [isLoad, setLoad] = useState(false);
   const [cardsData, setCardsData] = useState({
     allCards: [],
     filteredCards: [],
@@ -42,11 +44,15 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
   };
 
   useEffect(() => {
+    setLoad(true)
     getAllMovies()
       .then((res) => {
         setSavedMovies(() => {
           return res;
         });
+      })
+      .finally( () =>{
+        setLoad(false)
       })
       .catch((err) => console.error(err));
   }, []);
@@ -136,7 +142,9 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
         isCheckboxClicked={isCheckboxClicked}
         setIsCheckboxClicked={setIsCheckboxClicked}
       />
-      <section className="movies__card-section">
+      {!isLoad ?
+        <section className="movies__card-section">
+
         {cardsData.filteredCards.length
           ? [...cardsData.filteredCards].map((el) => {
               const movieDuration = countMovieDuration(el.duration);
@@ -161,8 +169,11 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
                 />
               );
             })
-          : null}
+          : <p>фильмов не найдено</p>}
       </section>
+      :
+      <Loader/>
+        }
       {cardsData.filteredCards.length < cardsData.allCards.length && (
         <button
           type="button"

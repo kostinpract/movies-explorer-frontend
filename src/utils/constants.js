@@ -1,4 +1,4 @@
-export const baseUrl = "https://api.kostinpract.nomoreparties.sbs";
+export const baseUrl = "http://localhost:3000";
 export const allMoviesUrl = "https://api.nomoreparties.co";
 export const cookieExpiredTime = 10000;
 
@@ -11,7 +11,7 @@ export const errorType = {
     name: "Это поле принимает только латиницу, кириллицу, пробел или дефис.",
     email: "Введите корректный email",
   },
-  tooShort: "Пароль должен состоять минимум из 6 символов",
+  tooShort: "Пароль должен состоять минимум из 8 символов",
 };
 
 export const checkResponse = (res) => {
