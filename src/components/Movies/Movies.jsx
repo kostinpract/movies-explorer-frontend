@@ -204,7 +204,8 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
         >
           Еще
         </button>
-      ) : <p>Ничего не найдено</p>}
+      ) : null}
+      {cardsData.filteredCards == 0 && <p>Ничего не найдено</p>}
     </section>
   );
 }
