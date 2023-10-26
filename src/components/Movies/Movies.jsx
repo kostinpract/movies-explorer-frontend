@@ -204,7 +204,7 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
         >
           Еще
         </button>
-      ) : <p>Таких фильмов больше нет</p>}
+      ) : <p>Ничего не найдено</p>}
     </section>
   );
 }
