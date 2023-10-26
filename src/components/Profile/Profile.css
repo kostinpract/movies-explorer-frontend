@@ -61,6 +61,12 @@ profile-section__submit-button:disabled {
   color: #ee3465;
 }
 
+.profile-section__true {
+  margin-top: 20px;
+  text-align: center;
+  color: green;
+}
+
 @media screen and (max-width: 320px) {
   .profile-section {
     max-height: none;

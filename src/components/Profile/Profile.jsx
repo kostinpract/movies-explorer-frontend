@@ -10,6 +10,7 @@ import { refreshUserData } from "../../utils/MainApi";
 
 function Profile() {
   const { state, setState } = useContext(UserContext);
+  const [userTrue, setUserTrue] = useState(false)
   const navigate = useNavigate();
   const { values, handleFormChange, setValues, errors, isFormValid } =
     useValidationHook();
@@ -65,9 +66,11 @@ function Profile() {
             },
           };
         });
+        setUserTrue(true)
       })
       .catch((err) => {
         console.log(err);
+        setUserTrue(false)
       });
   };
 
@@ -106,6 +109,12 @@ function Profile() {
               placeholder="E-mail"
             />
           </div>
+          {userTrue ?
+            <span className="profile-section__true">успеное изменение</span>
+            :
+            null
+
+          }
           <button
             className="profile-section__submit-button"
             type="submit"

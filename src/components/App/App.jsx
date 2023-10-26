@@ -15,7 +15,7 @@ import { getCookie, deleteCookie } from "../../utils/cookie";
 import { ProtectedRoute } from "../../services/ProtectedRoute/ProtectedRoute";
 
 function App() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
   const { state, setState } = useContext(UserContext);
   const token = getCookie("token");
@@ -41,7 +41,7 @@ function App() {
           })
         )
         .catch((err) => {
-          console.error(err)
+          console.error(err);
           deleteCookie("token");
           setState((prevState) => {
             return {
@@ -70,7 +70,7 @@ function App() {
           });
         })
         .catch((err) => {
-          console.error(err)
+          console.error(err);
           deleteCookie("token");
           setState((prevState) => {
             return {
@@ -125,11 +125,7 @@ function App() {
               path="saved-movies"
               element={
                 <ProtectedRoute location={location} isAuth={state.isAuth}>
-                  <SavedMovies
-                    owner={state._id}
-                    setIsCheckboxClicked={toggleCheckboxState}
-                    isCheckboxClicked={isCheckboxClicked}
-                  />
+                  <SavedMovies owner={state._id} />
                 </ProtectedRoute>
               }
             />

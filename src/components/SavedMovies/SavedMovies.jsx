@@ -1,8 +1,7 @@
+import "./SavedMovies";
 import React, { useContext, useEffect, useState } from "react";
-import "./SavedMovies.css";
 import SearchFormSection from "../ui-components/SearchFormSection/SearchFormSection";
 import MovieCard from "../ui-components/MovieCard/MovieCard";
-import useLazyLoadHook from "../../utils/hooks/useLazyLoadHook";
 import {
   countMovieDuration,
   getFilteredMovies,
@@ -14,7 +13,6 @@ import { UserContext } from "../../services/UserContext/UserContext";
 function SavedMovies({ owner }) {
   const { state, setState } = useContext(UserContext);
   const { savedMovies } = state;
-  const cardsAmount = useLazyLoadHook();
   const [cardsData, setCardsData] = useState({
     allCards: [],
     filteredCards: [],
@@ -39,7 +37,7 @@ function SavedMovies({ owner }) {
         return {
           ...prevState,
           allCards: [...moviesArray],
-          filteredCards: [...moviesArray].slice(0, cardsAmount.default),
+          filteredCards: [...moviesArray],
         };
       });
     }
@@ -47,15 +45,31 @@ function SavedMovies({ owner }) {
 
   // set all cards for first screen
   useEffect(() => {
-    setCardsDataFromScratch(savedMovies);
-  }, [savedMovies]);
+    if (!filterParams.requestedMovie) {
+      if (filterParams.isCheckboxClicked) {
+        const filteredShortMovies = getShortMovies(savedMovies);
+        setCardsDataFromScratch(filteredShortMovies);
+      } else setCardsDataFromScratch(savedMovies);
+    } else {
+      if (!filterParams.isCheckboxClicked) {
+        const filteredMovies = getFilteredMovies(
+          savedMovies,
+          filterParams?.requestedMovie
+        );
+        setCardsDataFromScratch(filteredMovies);
+      } else {
+        const filteredShortMovies = getShortMovies(savedMovies);
+        setCardsDataFromScratch(filteredShortMovies);
+      }
+    }
+  }, [savedMovies, filterParams.requestedMovie]);
 
   // set all cards every time allCards amount is changed
   useEffect(() => {
     setCardsData((prevState) => {
       return {
         ...prevState,
-        filteredCards: [...cardsData.allCards].slice(0, cardsAmount.default),
+        filteredCards: [...cardsData.allCards],
       };
     });
   }, [cardsData.allCards]);
@@ -126,53 +140,35 @@ function SavedMovies({ owner }) {
         }}
       />
       <section className="movies__card-section">
-        {cardsData.filteredCards.length
-          ? [...cardsData.filteredCards].map((el) => {
-              const movieDuration = countMovieDuration(el.duration);
-              return (
-                <MovieCard
-                  owner={owner}
-                  key={el._id}
-                  movieId={el.movieId}
-                  nameRU={el.nameRU}
-                  nameEN={el.nameEN}
-                  country={el.country}
-                  director={el.director}
-                  duration={el.duration}
-                  year={el.year}
-                  trailerLink={el.trailerLink}
-                  description={el.description}
-                  thumbnail={`https://api.nomoreparties.co/${el?.image?.format?.thumbnail?.url}`}
-                  imageSrc={el.image}
-                  imageAlt={el.nameEN}
-                  hours={movieDuration?.hours}
-                  minutes={movieDuration?.minutes}
-                />
-              );
-            })
-          : null}
+        {cardsData.filteredCards.length ? (
+          [...cardsData.filteredCards].map((el) => {
+            const movieDuration = countMovieDuration(el.duration);
+            return (
+              <MovieCard
+                isCardSaved={true}
+                owner={owner}
+                key={el._id}
+                movieId={el.movieId}
+                nameRU={el.nameRU}
+                nameEN={el.nameEN}
+                country={el.country}
+                director={el.director}
+                duration={el.duration}
+                year={el.year}
+                trailerLink={el.trailerLink}
+                description={el.description}
+                thumbnail={`https://api.nomoreparties.co/${el?.image?.format?.thumbnail?.url}`}
+                imageSrc={el.image}
+                imageAlt={el.nameEN}
+                hours={movieDuration?.hours}
+                minutes={movieDuration?.minutes}
+              />
+            );
+          })
+        ) : (
+          <p>Фильмы не найдены</p>
+        )}
       </section>
-      {cardsData.filteredCards.length < cardsData.allCards.length && (
-        <button
-          type="button"
-          className="movies__more-button"
-          onClick={() => {
-            setCardsData((prevState) => {
-              return {
-                ...prevState,
-                filteredCards: [...prevState.filteredCards].concat(
-                  [...cardsData.allCards].slice(
-                    cardsData.filteredCards.length,
-                    cardsData.filteredCards.length + cardsAmount.additional
-                  )
-                ),
-              };
-            });
-          }}
-        >
-          Еще
-        </button>
-      )}
     </section>
   );
 }

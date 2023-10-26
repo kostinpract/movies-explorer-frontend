@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect, useMemo } from "react";
 import "./MovieCard.css";
 import {
   deleteMovieById,
-  getSavedMovies,
   createMovie,
 } from "../../../utils/MainApi";
 import { UserContext } from "../../../services/UserContext/UserContext";
@@ -23,10 +22,11 @@ function MovieCard({
   description,
   hours,
   minutes,
+  isCardSaved,
 }) {
   const [isSaved, setIsSaved] = useState(false);
   const { state, setState } = useContext(UserContext);
-  const cardisExist = useMemo(() => {
+  const cardIsExist = useMemo(() => {
     return state.savedMovies.some((movie) => movie.movieId == movieId);
   }, [movieId, [...state.savedMovies]]);
 
@@ -36,9 +36,13 @@ function MovieCard({
     }
   }, [[...state.savedMovies]]);
 
+  const cardClassName = `movie-card__like-button 
+          movie-card__like-button_type_${
+            isCardSaved ? "removable" : isSaved ? "active" : "non-active"
+          }`;
 
   const toggle = () => {
-    if (cardisExist) {
+    if (cardIsExist) {
       const cardId = state.savedMovies.find(
         (movie) => movie.movieId == movieId
       );
@@ -74,7 +78,6 @@ function MovieCard({
       })
         .then((res) => {
           if (res) {
-            console.log(res);
             setState((prevState) => {
               return {
                 ...prevState,
@@ -94,8 +97,7 @@ function MovieCard({
         <p className="movie-card__title">{nameRU}</p>
         <p className="movie-card__duration">{`${hours}ч ${minutes}м`}</p>
         <button
-          className={`movie-card__like-button 
-          movie-card__like-button_type_${isSaved ? "active" : "non-active"}`}
+          className={cardClassName}
           type="button"
           onClick={() => {
             toggle();
@@ -103,7 +105,11 @@ function MovieCard({
         ></button>
       </div>
       <a href={trailerLink}>
-        <img className="movie-card__movie-cover" src={imageSrc} alt={imageAlt} />
+        <img
+          className="movie-card__movie-cover"
+          src={imageSrc}
+          alt={imageAlt}
+        />
       </a>
     </li>
   );

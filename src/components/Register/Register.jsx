@@ -32,7 +32,7 @@ function Register() {
             .then((res) => {
               if (res) {
                 setCookie("token", res.token, cookieExpiredTime);
-                navigate("/");
+                navigate("/movies");
               }
             })
             .catch((err) => console.error(err));

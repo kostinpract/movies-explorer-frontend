@@ -43,20 +43,6 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
     }
   };
 
-  useEffect(() => {
-    setLoad(true)
-    getAllMovies()
-      .then((res) => {
-        setSavedMovies(() => {
-          return res;
-        });
-      })
-      .finally( () =>{
-        setLoad(false)
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
   // set all cards for first screen
   useEffect(() => {
     if (localStorage.getItem("searchMovieInput")) {
@@ -64,6 +50,19 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
         savedMovies,
         localStorage.getItem("searchMovieInput")
       );
+      if (!savedMovies.length) {
+        setLoad(true);
+        getAllMovies()
+          .then((res) => {
+            setSavedMovies(() => {
+              return res;
+            });
+          })
+          .finally(() => {
+            setLoad(false);
+          })
+          .catch((err) => console.error(err));
+      }
       if (isCheckboxClicked) {
         const filteredShortMovies = getShortMovies(filteredMovies);
         setCardsDataFromScratch(filteredShortMovies);
@@ -92,10 +91,7 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
     const requestedValue = localStorage.getItem("searchMovieInput");
 
     if (!requestedValue) {
-      const filteredShortMovies = getShortMovies(savedMovies);
-      setCardsDataFromScratch(
-        isCheckboxClicked ? filteredShortMovies : savedMovies
-      );
+      setCardsDataFromScratch([]);
     } else {
       const filteredMovies = getFilteredMovies(savedMovies, requestedValue);
       const filteredShortMovies = getShortMovies(filteredMovies);
@@ -106,6 +102,20 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
   }, [isCheckboxClicked]);
 
   const onSearchSubmit = () => {
+    if (!savedMovies.length) {
+      setLoad(true);
+      getAllMovies()
+        .then((res) => {
+          setSavedMovies(() => {
+            return res;
+          });
+        })
+        .finally(() => {
+          setLoad(false);
+        })
+        .catch((err) => console.error(err));
+    }
+
     localStorage.setItem("searchMovieInput", values.search);
 
     if (values.search === "") {
@@ -142,11 +152,10 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
         isCheckboxClicked={isCheckboxClicked}
         setIsCheckboxClicked={setIsCheckboxClicked}
       />
-      {!isLoad ?
+      {!isLoad ? (
         <section className="movies__card-section">
-
-        {cardsData.filteredCards.length
-          ? [...cardsData.filteredCards].map((el) => {
+          {cardsData.filteredCards.length !== null &&
+            [...cardsData.filteredCards].map((el) => {
               const movieDuration = countMovieDuration(el.duration);
               return (
                 <MovieCard
@@ -168,13 +177,14 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
                   minutes={movieDuration?.minutes}
                 />
               );
-            })
-          : <p>фильмов не найдено</p>}
-      </section>
-      :
-      <Loader/>
-        }
-      {cardsData.filteredCards.length < cardsData.allCards.length && (
+            })}
+          {localStorage.getItem("searchMovieInput") &&
+            cardsData.filteredCards.length !== null && null}
+        </section>
+      ) : (
+        <Loader />
+      )}
+      {cardsData.filteredCards.length < cardsData.allCards.length ? (
         <button
           type="button"
           className="movies__more-button"
@@ -194,7 +204,7 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
         >
           Еще
         </button>
-      )}
+      ) : <p>Таких фильмов больше нет</p>}
     </section>
   );
 }
