@@ -4,11 +4,11 @@ import "./Page.css";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 
-function Page() {
+function Page({isLogin}) {
   return (
     <>
       <Header isLogin={
-        true
+        isLogin
       } />
       <main className="page">
         <Outlet />

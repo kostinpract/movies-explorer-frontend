@@ -40,7 +40,7 @@
 .input-component__error {
   position: absolute;
   left: 0;
-  bottom: -22px;
+  bottom: -18px;
   font: 400 10px / normal var(--fonts);
   color: #ee3465;
 }

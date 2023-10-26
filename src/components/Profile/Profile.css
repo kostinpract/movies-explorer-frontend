@@ -47,12 +47,24 @@
 }
 
 .profile-section__submit-button {
-  margin-top: auto;
+  margin-top: 100px;
 }
+
+profile-section__submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 
 .profile-section__logout-btn {
   padding-top: 16px;
   color: #ee3465;
+}
+
+.profile-section__true {
+  margin-top: 20px;
+  text-align: center;
+  color: green;
 }
 
 @media screen and (max-width: 320px) {

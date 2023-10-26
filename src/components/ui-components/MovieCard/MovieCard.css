@@ -52,7 +52,7 @@
   background: url(../../../images/like-icon-non-active.svg) no-repeat;
 }
 
-.movie-card__like-button_type_active:hover {
+.movie-card__like-button_type_removable {
   background: url(../../../images/cross-icon.svg) no-repeat;
 }
 

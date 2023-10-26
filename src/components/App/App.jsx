@@ -1,6 +1,7 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
+import { UserContext } from "../../services/UserContext/UserContext";
 import Page from "../Page/Page";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -9,24 +10,140 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Page404 from "../Page404/Page404";
+import { getAuthUserInfo, getSavedMovies } from "../../utils/MainApi";
+import { getCookie, deleteCookie } from "../../utils/cookie";
+import { ProtectedRoute } from "../../services/ProtectedRoute/ProtectedRoute";
 
 function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { state, setState } = useContext(UserContext);
+  const token = getCookie("token");
+
+  const [isCheckboxClicked, setIsCheckboxClicked] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("isMovieShort")) {
+      if (localStorage.getItem("isMovieShort") === "false") {
+        setIsCheckboxClicked(() => false);
+      } else {
+        setIsCheckboxClicked(() => true);
+      }
+    }
+    if (token) {
+      getSavedMovies()
+        .then((res) =>
+          setState((prevState) => {
+            return {
+              ...prevState,
+              savedMovies: res,
+            };
+          })
+        )
+        .catch((err) => {
+          console.error(err);
+          deleteCookie("token");
+          setState((prevState) => {
+            return {
+              ...prevState,
+              isAuth: false,
+              userData: null,
+              _id: null,
+            };
+          });
+          localStorage.clear();
+          navigate("/");
+        });
+      getAuthUserInfo()
+        .then((res) => {
+          const { name, email, _id } = res;
+          setState((prevState) => {
+            return {
+              ...prevState,
+              isAuth: true,
+              userData: {
+                email: email,
+                name: name,
+              },
+              _id: _id,
+            };
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+          deleteCookie("token");
+          setState((prevState) => {
+            return {
+              ...prevState,
+              isAuth: false,
+              userData: null,
+              _id: null,
+            };
+          });
+          localStorage.clear();
+          navigate("/");
+        });
+    } else {
+      deleteCookie("token");
+      setState((prevState) => {
+        return {
+          ...prevState,
+          isAuth: false,
+          userData: null,
+          _id: null,
+        };
+      });
+      localStorage.clear();
+      navigate("/");
+    }
+  }, [token]);
+
+  const toggleCheckboxState = () => {
+    setIsCheckboxClicked(!isCheckboxClicked);
+    localStorage.setItem("isMovieShort", !isCheckboxClicked);
+  };
+
   return (
-    <>
+    <UserContext.Provider value={{ state, setState }}>
       <Routes>
         <Route path="/">
-          <Route element={<Page />}>
+          <Route element={<Page isLogin={state.isAuth} />}>
             <Route index element={<Main />} />
-            <Route path="movies" element={<Movies />} />
-            <Route path="saved-movies" element={<SavedMovies />} />
-            <Route path="profile" element={<Profile />} />
+            <Route
+              path="movies"
+              element={
+                <ProtectedRoute location={location} isAuth={state.isAuth}>
+                  <Movies
+                    owner={state._id}
+                    setIsCheckboxClicked={toggleCheckboxState}
+                    isCheckboxClicked={isCheckboxClicked}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="saved-movies"
+              element={
+                <ProtectedRoute location={location} isAuth={state.isAuth}>
+                  <SavedMovies owner={state._id} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute location={location} isAuth={state.isAuth}>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
           </Route>
-          <Route path="signup" element={<Register />} />
+          <Route path="signup" element={<Register location={location} />} />
           <Route path="signin" element={<Login />} />
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
-    </>
+    </UserContext.Provider>
   );
 }
 
