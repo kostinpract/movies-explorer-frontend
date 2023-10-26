@@ -14,6 +14,7 @@ import useValidationHook from "../../utils/hooks/useValidationHook";
 import Loader from "../ui-components/Loader/Loader";
 
 function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
+  const [nothing, setNothing] = useState(false)
   const cardsAmount = useLazyLoadHook();
   const [savedMovies, setSavedMovies] = useState([]);
   const [isLoad, setLoad] = useState(false);
@@ -128,9 +129,21 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
     } else {
       const filteredMovies = getFilteredMovies(savedMovies, values.search);
       if (!isCheckboxClicked) {
+        if(filteredMovies.length == 0) {
+          setNothing(true)
+        } 
+        if(filteredMovies.length !== 0) {
+          setNothing(false)
+        }
         setCardsDataFromScratch(filteredMovies);
       } else {
         const filteredShortMovies = getShortMovies(filteredMovies);
+        if(filteredShortMovies.length == 0) {
+          setNothing(true)
+        }
+        if(filteredShortMovies.length !== 0){
+          setNothing(false)
+        }
         setCardsDataFromScratch(filteredShortMovies);
       }
     }
@@ -205,7 +218,7 @@ function Movies({ isCheckboxClicked, setIsCheckboxClicked, owner }) {
           Еще
         </button>
       ) : null}
-      {cardsData.filteredCards == 0 && <p>Ничего не найдено</p>}
+      {nothing ? <p>Ничего не найдено</p> : null}
     </section>
   );
 }
